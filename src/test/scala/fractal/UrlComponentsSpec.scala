@@ -13,4 +13,14 @@ class UrlComponentsSpec extends FlatSpec with ShouldMatchers {
     val components = UrlComponents("https://mail.google.com/mail/u/0/?pli=1#inbox")
     components.queryComponents should be(List(QueryParam("pli","1")))
   }
+
+  it should "give all the path component matchers and query component matchers" in {
+    val components = UrlComponents("https://mail.google.com/mail/u/0/?pli=1#inbox")
+    components.matchersPossible should be(List(
+      PathComponentMatcher(0,"mail"),
+      PathComponentMatcher(1,"u"),
+      PathComponentMatcher(2,"0"),
+      QueryParamMatcher("pli")
+    ))
+  }
 }
